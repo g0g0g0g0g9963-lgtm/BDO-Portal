@@ -101,6 +101,29 @@ export default function Home() {
     <main className={`portal-shell theme-${theme}`}>
       <div className="scene-overlay" aria-hidden="true" />
       <div className="right-focus-overlay" aria-hidden="true" />
+      <svg className="ai-building-network" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <filter id="building-node-glow" x="-300%" y="-300%" width="700%" height="700%">
+            <feGaussianBlur stdDeviation="5.6" result="blur" />
+            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+          <linearGradient id="building-link-line" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#b8def7" stopOpacity="0.16" />
+            <stop offset="0.5" stopColor="#effaff" stopOpacity="0.86" />
+            <stop offset="1" stopColor="#acd7f5" stopOpacity="0.18" />
+          </linearGradient>
+        </defs>
+        <g className="building-link-lines">
+          <path d="M525 440 Q572 352 624 318" />
+          <path d="M624 318 Q674 348 722 420" />
+          <path className="building-link-soft" d="M525 440 Q622 256 722 420" />
+        </g>
+        <g className="building-link-nodes" filter="url(#building-node-glow)">
+          <circle cx="525" cy="440" r="4" />
+          <circle cx="624" cy="318" r="5" />
+          <circle cx="722" cy="420" r="4.2" />
+        </g>
+      </svg>
       <section className="intro-panel" aria-labelledby="hero-title">
         <BdoLogo korea={theme === 'bright'} />
         <div className="hero-copy">

@@ -26,19 +26,11 @@ button { font: inherit; }
   background-position: center 48%;
 }
 
-.portal-shell::after, .scene-overlay { position: absolute; inset: 0; z-index: -1; content: ''; pointer-events: none; }
-.portal-shell::after { background: linear-gradient(180deg, rgba(2,15,30,.02), rgba(2,15,30,.1)); }
-.scene-overlay {
+.portal-shell::after, .scene-overlay {
   background: linear-gradient(90deg,
-    rgba(2,12,29,.97) 0%,
-    rgba(2,13,31,.95) 27%,
-    rgba(2,14,33,.85) 40%,
-    rgba(3,17,37,.54) 50%,
-    rgba(4,20,42,.14) 59%,
-    rgba(5,23,46,.045) 66%,
-    rgba(5,22,43,.16) 73%,
-    rgba(4,18,37,.43) 84%,
-    rgba(3,15,32,.72) 100%
+    rgba(2,12,29,.97) 0%, rgba(2,13,31,.95) 28%, rgba(2,14,33,.84) 40%,
+    rgba(3,17,37,.49) 50%, rgba(4,20,42,.14) 59%, rgba(5,23,46,.08) 66%,
+    rgba(5,22,43,.19) 74%, rgba(4,18,37,.44) 85%, rgba(3,15,32,.72) 100%
   );
 }
 .right-focus-overlay {
@@ -46,7 +38,43 @@ button { font: inherit; }
   z-index: -1;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse 24% 76% at 63% 48%, rgba(180,214,240,.075), transparent 72%);
+  background:
+    radial-gradient(ellipse 31% 40% at 51% 0%, rgba(2,13,31,.52) 0%, rgba(2,14,32,.24) 56%, transparent 100%),
+    linear-gradient(180deg,
+      rgba(2,13,31,.24) 0%, rgba(2,14,32,.15) 22%, rgba(2,15,32,.07) 41%,
+      rgba(2,15,32,.04) 58%, rgba(2,15,32,.11) 100%
+    );
+}
+
+.ai-building-network {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: .86;
+}
+.building-link-lines path {
+  fill: none;
+  stroke: url(#building-link-line);
+  stroke-width: 1.05;
+  vector-effect: non-scaling-stroke;
+  opacity: .82;
+}
+.building-link-lines .building-link-soft { opacity: .38; }
+.building-link-nodes circle {
+  fill: #f6fcff;
+  opacity: .9;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: building-node-twinkle 4.2s ease-in-out infinite;
+}
+.building-link-nodes circle:nth-child(2) { animation-delay: -1.4s; }
+.building-link-nodes circle:nth-child(3) { animation-delay: -2.8s; }
+@keyframes building-node-twinkle {
+  0%, 100% { opacity: .62; transform: scale(.76); }
+  48% { opacity: 1; transform: scale(1.08); }
 }
 
 .theme-bright::after { background: linear-gradient(180deg,rgba(255,255,255,.16),rgba(222,236,248,.12)); }
@@ -90,7 +118,7 @@ button { font: inherit; }
 .brand-korea-lockup { display: flex; align-items: center; gap: 28px; }
 .brand-korea-logo { display: block; width: 112px; height: auto; flex: 0 0 auto; }
 .brand-korea-label { color: #e31837; font-size: 15px; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
-.bdo-mark { position: relative; display: inline-flex; align-items: flex-end; height: 46px; padding: 0 2px 4px 10px; color: #0861bd; font-family: Arial, Helvetica, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: -2px; line-height: 1; }
+.bdo-mark { position: relative; display: inline-flex; align-items: flex-end; height: 46px; padding: 0 2px 4px 10px; color: #fff; font-family: Arial, Helvetica, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: -2px; line-height: 1; }
 .bdo-mark::before { position: absolute; left: 3px; bottom: 3px; width: 3px; height: 34px; content: ''; background: #ec1437; clip-path: polygon(0 0,100% 0,100% 82%,0 100%); }
 .bdo-mark::after { position: absolute; left: 3px; right: 0; bottom: 0; height: 3px; content: ''; background: #ec1437; }
 .brand-divider { width: 1px; height: 34px; background: rgba(255,255,255,.55); }
@@ -220,19 +248,4 @@ button { font: inherit; }
   .feature-icon { width: 34px; height: 34px; flex-basis: 34px; }
 }
 
-@media (prefers-reduced-motion: reduce) { *,*::before,*::after { transition: none !important; } }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { transition: none !important; } .building-link-nodes circle { animation: none !important; } }
