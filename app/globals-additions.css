@@ -1,0 +1,14 @@
+.portal-entry-dot {
+  display: inline-block;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  appearance: none;
+}
+
+.portal-entry-dot:focus-visible {
+  outline: 3px solid rgba(255, 138, 0, .28);
+  outline-offset: 5px;
+}
+
