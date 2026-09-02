@@ -15,7 +15,16 @@ const features = [
   ['ai', '업무 전반을 돕는 AI Assistant']
 ];
 
-function BdoLogo() {
+function BdoLogo({ korea = false }: { korea?: boolean }) {
+  if (korea) {
+    return (
+      <div className="brand-korea-lockup" aria-label="BDO Korea">
+        <img className="brand-korea-logo" src="/bdo-logo-color.png" alt="" aria-hidden="true" />
+        <span className="brand-korea-label">KOREA</span>
+      </div>
+    );
+  }
+
   return (
     <div className="brand-lockup" aria-label="BDO Member Firm">
       <div className="bdo-mark" aria-hidden="true"><span>BDO</span></div>
@@ -73,7 +82,7 @@ export default function Home() {
       <div className="scene-overlay" aria-hidden="true" />
       <div className="right-focus-overlay" aria-hidden="true" />
       <section className="intro-panel" aria-labelledby="hero-title">
-        <BdoLogo />
+        <BdoLogo korea={theme === 'bright'} />
         <div className="hero-copy">
           <p className="eyebrow">SEONGHYUN CPAs · AX</p>
           <h1 id="hero-title">AI와 함께 일하는<br />회계법인, <em>성현.</em></h1>
