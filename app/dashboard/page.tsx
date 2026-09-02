@@ -75,9 +75,9 @@ const notices = [
 
 function BdoLogo() {
   return (
-    <div className="dash-brand-lockup" aria-label="BDO Member Firm">
-      <div className="dash-bdo-mark" aria-hidden="true"><span>BDO</span></div>
-      <div className="dash-member-copy"><strong>MEMBER FIRM</strong><span>SH Portal</span></div>
+    <div className="dash-brand-lockup" aria-label="BDO Korea">
+      <img className="dash-bdo-logo" src="/bdo-logo-color.png" alt="" aria-hidden="true" />
+      <span className="dash-country-label">KOREA</span>
     </div>
   );
 }
