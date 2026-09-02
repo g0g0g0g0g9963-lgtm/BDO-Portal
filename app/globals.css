@@ -28,7 +28,7 @@ button { font: inherit; }
 
 .portal-shell::after, .scene-overlay { position: absolute; inset: 0; z-index: -1; content: ''; pointer-events: none; }
 .portal-shell::after { background: linear-gradient(180deg, rgba(2,15,30,.02), rgba(2,15,30,.1)); }
-.scene-overlay { background: linear-gradient(90deg, rgba(3,14,32,.93) 0%, rgba(3,14,32,.89) 28%, rgba(3,14,32,.72) 41%, rgba(3,14,32,.44) 50%, rgba(3,14,32,.18) 59%, rgba(3,14,32,.04) 68%, transparent 76%); }
+.scene-overlay { background: linear-gradient(90deg, rgba(2,12,29,.965) 0%, rgba(2,13,31,.95) 27%, rgba(2,14,33,.87) 40%, rgba(3,17,37,.66) 49%, rgba(4,21,43,.34) 58%, rgba(5,24,46,.10) 69%, transparent 79%); }
 .right-focus-overlay {
   position: absolute;
   z-index: -1;
@@ -45,6 +45,37 @@ button { font: inherit; }
     rgba(27,59,90,.055) 77%,
     rgba(22,53,83,.085) 100%
   );
+}
+
+.ai-network-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.network-arcs path {
+  fill: none;
+  stroke: url(#network-line);
+  stroke-width: 1.35;
+  vector-effect: non-scaling-stroke;
+  opacity: .78;
+}
+.network-arcs .network-arc-faint { opacity: .38; }
+.network-nodes circle {
+  fill: url(#network-node);
+  opacity: .96;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: network-pulse 4.8s ease-in-out infinite;
+}
+.network-nodes circle:nth-child(2n) { animation-delay: -1.7s; }
+.network-nodes circle:nth-child(3n) { animation-delay: -3.1s; }
+@keyframes network-pulse {
+  0%, 100% { opacity: .66; transform: scale(.78); }
+  48% { opacity: 1; transform: scale(1.08); }
 }
 
 .theme-bright::after { background: linear-gradient(180deg,rgba(255,255,255,.16),rgba(222,236,248,.12)); }
@@ -67,7 +98,8 @@ button { font: inherit; }
   color: #15395f;
   text-shadow: none;
 }
-.theme-bright .feature-icon { border-color: rgba(12,44,90,.45); }
+.theme-bright .feature-icon { border-color: rgba(12,44,90,.25); background: rgba(235,245,252,.42); color: rgba(20,65,103,.7); }
+.theme-bright .ai-network-layer { opacity: .68; }
 .theme-bright .login-card {
   border-color: rgba(116,151,183,.52);
   background: linear-gradient(145deg,rgba(251,254,255,.985),rgba(216,232,246,.97));
@@ -104,11 +136,8 @@ button { font: inherit; }
 .feature-list { width: min(100%, 385px); margin: clamp(24px, 3.2vh, 34px) 0 0; padding: 0; list-style: none; }
 .feature-list li { display: flex; min-height: 54px; align-items: center; border-bottom: 1px solid rgba(255,255,255,.34); color: #fff; font-size: 14px; font-weight: 520; letter-spacing: -.01em; text-shadow: 0 1px 10px rgba(0,0,0,.32); }
 .feature-list li:last-child { border-bottom: 0; }
-.feature-icon { display: grid; flex: 0 0 44px; width: 44px; height: 44px; margin-right: 15px; place-items: center; border: 1px solid rgba(255,255,255,.65); border-radius: 50%; color: var(--orange); }
-.shield-symbol { color: var(--orange); font-size: 15px; }
-.folder-symbol { width: 20px; height: 14px; border: 2px solid var(--orange); border-radius: 2px; }
-.folder-symbol::before { display: block; width: 8px; height: 3px; margin: -5px 0 0 1px; border: 2px solid var(--orange); border-bottom: 0; border-radius: 2px 2px 0 0; content: ''; }
-.ai-symbol { display: grid; width: 23px; height: 20px; place-items: center; border-radius: 5px; background: linear-gradient(135deg,#7f5cff,#ff70ba); color: white; font-size: 8px; font-weight: 750; }
+.feature-icon { display: grid; flex: 0 0 38px; width: 38px; height: 38px; margin-right: 15px; place-items: center; border: 1px solid rgba(218,233,247,.34); border-radius: 50%; background: rgba(10,33,57,.18); color: rgba(220,235,248,.82); }
+.feature-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; stroke-linejoin: round; }
 
 .login-card {
   position: absolute;
@@ -221,7 +250,7 @@ button { font: inherit; }
   .feature-icon { width: 34px; height: 34px; flex-basis: 34px; }
 }
 
-@media (prefers-reduced-motion: reduce) { *,*::before,*::after { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { transition: none !important; } .network-nodes circle { animation: none !important; } }
 
 
 

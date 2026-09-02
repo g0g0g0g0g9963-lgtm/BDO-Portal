@@ -35,9 +35,29 @@ function BdoLogo({ korea = false }: { korea?: boolean }) {
 }
 
 function FeatureIcon({ type }: { type: string }) {
-  if (type === 'shield') return <span className="shield-symbol" aria-hidden="true">◆</span>;
-  if (type === 'folder') return <span className="folder-symbol" aria-hidden="true" />;
-  return <span className="ai-symbol" aria-hidden="true">AI</span>;
+  if (type === 'shield') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3.5 19 6v5.2c0 4.4-2.9 7.6-7 9.3-4.1-1.7-7-4.9-7-9.3V6l7-2.5Z" />
+        <path d="m9.1 12 1.9 1.9 4-4.2" />
+      </svg>
+    );
+  }
+  if (type === 'folder') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3.8 7.3h6l1.7 2h8.7v8.8c0 1-.8 1.8-1.8 1.8H5.6c-1 0-1.8-.8-1.8-1.8V7.3Z" />
+        <path d="M3.8 7.3V5.9c0-1 .8-1.8 1.8-1.8h4l2 2h6.8c1 0 1.8.8 1.8 1.8v1.4" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3.6v3.1M12 17.3v3.1M3.6 12h3.1M17.3 12h3.1" />
+      <path d="m6.1 6.1 2.2 2.2M15.7 15.7l2.2 2.2M17.9 6.1l-2.2 2.2M8.3 15.7l-2.2 2.2" />
+      <circle cx="12" cy="12" r="3.2" />
+    </svg>
+  );
 }
 
 function ProviderIcon({ id }: { id: string }) {
@@ -81,6 +101,43 @@ export default function Home() {
     <main className={`portal-shell theme-${theme}`}>
       <div className="scene-overlay" aria-hidden="true" />
       <div className="right-focus-overlay" aria-hidden="true" />
+      <svg className="ai-network-layer" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="network-line" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#a9d8ff" stopOpacity="0" />
+            <stop offset="0.28" stopColor="#d8efff" stopOpacity="0.78" />
+            <stop offset="0.7" stopColor="#ecf8ff" stopOpacity="0.9" />
+            <stop offset="1" stopColor="#b7dcff" stopOpacity="0.08" />
+          </linearGradient>
+          <radialGradient id="network-node">
+            <stop offset="0" stopColor="#ffffff" />
+            <stop offset="0.24" stopColor="#e9f7ff" />
+            <stop offset="0.6" stopColor="#8bc8ff" stopOpacity="0.58" />
+            <stop offset="1" stopColor="#5aa9ef" stopOpacity="0" />
+          </radialGradient>
+          <filter id="network-glow" x="-220%" y="-220%" width="540%" height="540%">
+            <feGaussianBlur stdDeviation="5.5" result="blur" />
+            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+        </defs>
+        <g className="network-arcs">
+          <path d="M650 520 Q820 278 1030 472" />
+          <path d="M720 552 Q950 292 1250 478" />
+          <path d="M785 515 Q1085 255 1510 480" />
+          <path d="M875 558 Q1180 350 1535 565" />
+          <path className="network-arc-faint" d="M770 605 Q960 410 1165 590" />
+        </g>
+        <g className="network-nodes" filter="url(#network-glow)">
+          <circle cx="650" cy="520" r="8" />
+          <circle cx="780" cy="390" r="7" />
+          <circle cx="925" cy="352" r="9" />
+          <circle cx="1030" cy="472" r="7" />
+          <circle cx="1185" cy="382" r="8" />
+          <circle cx="1250" cy="478" r="7" />
+          <circle cx="1418" cy="386" r="9" />
+          <circle cx="1510" cy="480" r="8" />
+        </g>
+      </svg>
       <section className="intro-panel" aria-labelledby="hero-title">
         <BdoLogo korea={theme === 'bright'} />
         <div className="hero-copy">
