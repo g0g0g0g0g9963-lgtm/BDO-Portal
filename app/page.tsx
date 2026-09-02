@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const methods = [
-  { id: 'google', label: 'Google Workspace로 로그인' },
   { id: 'microsoft', label: 'Microsoft 365로 로그인' },
   { id: 'employee', label: '사원번호로 로그인' }
 ];
@@ -27,7 +26,10 @@ function BdoLogo({ korea = false }: { korea?: boolean }) {
 
   return (
     <div className="brand-lockup" aria-label="BDO Member Firm">
-      <div className="bdo-mark" aria-hidden="true"><span>BDO</span></div>
+      <div className="bdo-mark" aria-hidden="true">
+        <img className="bdo-mark-base" src="/bdo-logo-color.png" alt="" />
+        <img className="bdo-mark-white-letters" src="/bdo-logo-color.png" alt="" />
+      </div>
       <span className="brand-divider" aria-hidden="true" />
       <div className="member-copy"><strong>MEMBER FIRM</strong><span>People Helping People Achieve Their Dreams</span></div>
     </div>
@@ -148,21 +150,19 @@ export default function Home() {
             <button className="orange-dot portal-entry-dot" type="button" onClick={openPortal} aria-label="SH Portal 열기" />
             <span>SH Portal</span>
           </div>
-          <p>성현회계법인 업무 포털</p>
         </header>
         <div className="login-copy">
           <h2 id="login-title">통합 계정으로 로그인</h2><span className="title-accent" aria-hidden="true" />
-          <p>하나의 계정으로 모든 업무 서비스를 이용하세요.</p>
         </div>
         <div className="login-actions">
-          {methods.slice(0, 2).map((method) => (
+          {methods.slice(0, 1).map((method) => (
             <button key={method.id} type="button" onClick={() => showDemoNotice(method.label)}>
               <span className="provider-well"><ProviderIcon id={method.id} /></span>
               <span className="button-label">{method.label}</span><span className="chevron" aria-hidden="true">›</span>
             </button>
           ))}
           <div className="or-divider" aria-hidden="true"><span /><b>또는</b><span /></div>
-          <button type="button" onClick={() => showDemoNotice(methods[2].label)}>
+          <button type="button" onClick={() => showDemoNotice(methods[1].label)}>
             <span className="provider-well"><ProviderIcon id="employee" /></span>
             <span className="button-label">사원번호로 로그인</span><span className="chevron" aria-hidden="true">›</span>
           </button>
