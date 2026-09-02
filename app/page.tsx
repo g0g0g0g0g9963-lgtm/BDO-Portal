@@ -103,33 +103,10 @@ export default function Home() {
     <main className={`portal-shell theme-${theme}`}>
       <div className="scene-overlay" aria-hidden="true" />
       <div className="right-focus-overlay" aria-hidden="true" />
-      <svg className="ai-building-network" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <filter id="building-node-glow" x="-300%" y="-300%" width="700%" height="700%">
-            <feGaussianBlur stdDeviation="5.6" result="blur" />
-            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
-          <linearGradient id="building-link-line" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#b8def7" stopOpacity="0.16" />
-            <stop offset="0.5" stopColor="#effaff" stopOpacity="0.86" />
-            <stop offset="1" stopColor="#acd7f5" stopOpacity="0.18" />
-          </linearGradient>
-        </defs>
-        <g className="building-link-lines">
-          <path d="M525 440 Q572 352 624 318" />
-          <path d="M624 318 Q674 348 722 420" />
-          <path className="building-link-soft" d="M525 440 Q622 256 722 420" />
-        </g>
-        <g className="building-link-nodes" filter="url(#building-node-glow)">
-          <circle cx="525" cy="440" r="4" />
-          <circle cx="624" cy="318" r="5" />
-          <circle cx="722" cy="420" r="4.2" />
-        </g>
-      </svg>
       <section className="intro-panel" aria-labelledby="hero-title">
         <BdoLogo korea={theme === 'bright'} />
         <div className="hero-copy">
-          <p className="eyebrow">SEONGHYUN CPAs · AX</p>
+          <p className="eyebrow">SUNGHYUN CPAs · AX</p>
           <h1 id="hero-title">AI와 함께 일하는<br />회계법인, <em>성현.</em></h1>
           <p className="hero-description">
             감사·세무·자문 업무가 하나의 포털 위에서 흐르고, 개인의 경험이<br className="desktop-break" />
@@ -161,7 +138,6 @@ export default function Home() {
               <span className="button-label">{method.label}</span><span className="chevron" aria-hidden="true">›</span>
             </button>
           ))}
-          <div className="or-divider" aria-hidden="true"><span /><b>또는</b><span /></div>
           <button type="button" onClick={() => showDemoNotice(methods[1].label)}>
             <span className="provider-well"><ProviderIcon id="employee" /></span>
             <span className="button-label">사원번호로 로그인</span><span className="chevron" aria-hidden="true">›</span>
