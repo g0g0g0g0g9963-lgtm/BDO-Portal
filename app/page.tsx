@@ -101,43 +101,6 @@ export default function Home() {
     <main className={`portal-shell theme-${theme}`}>
       <div className="scene-overlay" aria-hidden="true" />
       <div className="right-focus-overlay" aria-hidden="true" />
-      <svg className="ai-network-layer" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="network-line" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#a9d8ff" stopOpacity="0" />
-            <stop offset="0.28" stopColor="#d8efff" stopOpacity="0.78" />
-            <stop offset="0.7" stopColor="#ecf8ff" stopOpacity="0.9" />
-            <stop offset="1" stopColor="#b7dcff" stopOpacity="0.08" />
-          </linearGradient>
-          <radialGradient id="network-node">
-            <stop offset="0" stopColor="#ffffff" />
-            <stop offset="0.24" stopColor="#e9f7ff" />
-            <stop offset="0.6" stopColor="#8bc8ff" stopOpacity="0.58" />
-            <stop offset="1" stopColor="#5aa9ef" stopOpacity="0" />
-          </radialGradient>
-          <filter id="network-glow" x="-220%" y="-220%" width="540%" height="540%">
-            <feGaussianBlur stdDeviation="5.5" result="blur" />
-            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
-        </defs>
-        <g className="network-arcs">
-          <path d="M650 520 Q820 278 1030 472" />
-          <path d="M720 552 Q950 292 1250 478" />
-          <path d="M785 515 Q1085 255 1510 480" />
-          <path d="M875 558 Q1180 350 1535 565" />
-          <path className="network-arc-faint" d="M770 605 Q960 410 1165 590" />
-        </g>
-        <g className="network-nodes" filter="url(#network-glow)">
-          <circle cx="650" cy="520" r="8" />
-          <circle cx="780" cy="390" r="7" />
-          <circle cx="925" cy="352" r="9" />
-          <circle cx="1030" cy="472" r="7" />
-          <circle cx="1185" cy="382" r="8" />
-          <circle cx="1250" cy="478" r="7" />
-          <circle cx="1418" cy="386" r="9" />
-          <circle cx="1510" cy="480" r="8" />
-        </g>
-      </svg>
       <section className="intro-panel" aria-labelledby="hero-title">
         <BdoLogo korea={theme === 'bright'} />
         <div className="hero-copy">
