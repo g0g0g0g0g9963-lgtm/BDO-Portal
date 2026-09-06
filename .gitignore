@@ -2,5 +2,11 @@ node_modules/
 .next/
 dist/
 .wrangler/
+.vinext/
 .env*
 !.env.example
+*.log
+
+# design exploration assets — large, not part of the live site
+/candidates/
+/source-images/
