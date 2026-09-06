@@ -1121,9 +1121,16 @@ body:not([data-theme="dark"]) .zone .zl{background:#fff;border-color:rgba(20,30,
 .tmcell{background:var(--wgTrack);border-radius:12px;padding:9px 4px;text-align:center}
 .tmcell span{font-size:calc(9.5px * var(--fz));color:var(--txt2);font-weight:650}
 .tmcell b{display:block;font-size:calc(18px * var(--fz));font-weight:800;margin-top:4px}
-.tmwait{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding:10px 12px;background:var(--wgTrack);border-radius:12px}
-.tmwait span{font-size:calc(11px * var(--fz));font-weight:650;color:var(--txt2)}
-.tmwait b{font-size:calc(15px * var(--fz));font-weight:800}
+.tmring{display:flex;align-items:center;gap:13px;margin-top:12px}
+.tmringWrap{position:relative;width:58px;height:58px;flex:0 0 auto}
+.tmringWrap svg{width:58px;height:58px;transform:rotate(-90deg)}
+.tmringWrap .trk{stroke:var(--wgTrack);fill:none;stroke-width:6.5}
+.tmringWrap .val{stroke:var(--ok);fill:none;stroke-width:6.5;stroke-linecap:round}
+.tmringNum{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:calc(13.5px * var(--fz));font-weight:800}
+.tmleg{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}
+.tmlegRow{display:flex;align-items:center;gap:6px;font-size:calc(10.5px * var(--fz));color:var(--txt2);font-weight:650;white-space:nowrap}
+.tmlegRow b{margin-left:auto;color:var(--wgFg);font-weight:800;font-size:calc(12px * var(--fz))}
+.tmdot{width:7px;height:7px;border-radius:50%;flex:0 0 auto}
 .tmbtn{margin-top:11px;width:100%;padding:11px;border:0;border-radius:14px;background:var(--wgFg);color:var(--wgBg);
   font:inherit;font-size:calc(12px * var(--fz));font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
 /* ══════════ App Studio — catalog + direct zone placement ══════════ */
@@ -1415,14 +1422,15 @@ const projRows = () => PROJ.map(p=>`
     <span class="tagp ${p[5]}" style="margin-top:4px;display:inline-block">${p[4]}</span></div></div>`).join('');
 
 const TIMESHEET=[
-  {d:'4/28 (월)',h:8,status:'draft'},
-  {d:'4/29 (화)',h:8,status:'draft'},
+  {d:'4/28 (월)',h:8,status:'ok'},
+  {d:'4/29 (화)',h:8,status:'ok'},
   {d:'4/30 (수)',h:8,status:'ok'},
-  {d:'5/01 (목)',h:0,status:'rejected'},
-  {d:'5/02 (금)',h:8,status:'ok'}
+  {d:'5/01 (목)',h:0,status:'draft'},
+  {d:'5/02 (금)',h:8,status:'rejected'}
 ];
 const TS_TAG={draft:['작성 중','a'], pending:['승인 요청','r'], ok:['승인 완료','o'], rejected:['반려','f']};
 const tsCount=s=>TIMESHEET.filter(r=>r.status===s).length;
+const tsPct=()=>{ const ok=tsCount('ok'), draft=tsCount('draft'); return ok+draft?Math.round(ok/(ok+draft)*100):0; };
 /* ══════════ 내 일정 · 회의실 예약 · 팀 스페이스 ══════════ */
 const SRC_COLOR={manual:'#5B6E7F', room:'#1F8F92', team:'#7B62D2'};
 const ROOMS=['1회의실','2회의실','3회의실','대회의실'];
@@ -1921,15 +1929,26 @@ const WIDGETS={
         </div>
         ${p?'<span class="tw-dot"></span>':''}
       </div>`; }).join('')}`},
-  timesheet:{open:'timesheet', body:()=>`
-    <div class="hd"><span class="sq" style="background:#3A6FD8">T</span>타임시트<span class="tagp ${tsCount('draft')?'a':'o'}">${tsCount('draft')?'Incomplete':'완료'}</span></div>
+  timesheet:{open:'timesheet', body:()=>{
+    const pct=tsPct(), r=25, circ=2*Math.PI*r;
+    return `
+    <div class="hd"><span class="sq" style="background:#3A6FD8">T</span>이번 주 타임시트 현황</div>
     <div class="tmgrid">
-      <div class="tmcell"><span>작성 중</span><b>${tsCount('draft')}</b></div>
       <div class="tmcell"><span>승인 요청</span><b>${tsCount('pending')}</b></div>
+      <div class="tmcell"><span>승인 완료</span><b>${tsCount('ok')}</b></div>
       <div class="tmcell"><span>반려</span><b>${tsCount('rejected')}</b></div>
     </div>
-    <div class="tmwait"><span>승인 대기</span><b>${tsCount('pending')}</b></div>
-    <button class="tmbtn" data-ts-write>🖊 타임시트 작성</button>`}
+    <div class="tmring">
+      <div class="tmringWrap"><svg viewBox="0 0 58 58"><circle class="trk" cx="29" cy="29" r="${r}"/>
+        <circle class="val" cx="29" cy="29" r="${r}" stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-pct/100)}"/></svg>
+        <div class="tmringNum">${pct}%</div></div>
+      <div class="tmleg">
+        <div class="tmlegRow"><span class="tmdot" style="background:#3A6FD8"></span>제출 완료<b>${tsCount('ok')}일</b></div>
+        <div class="tmlegRow"><span class="tmdot" style="background:#C77414"></span>미작성<b>${tsCount('draft')}일</b></div>
+        <div class="tmlegRow"><span class="tmdot" style="background:var(--red)"></span>반려<b>${tsCount('rejected')}건</b></div>
+      </div>
+    </div>
+    <button class="tmbtn" data-ts-write>🖊 타임시트 작성</button>`}}
 };
 
 /* ══════════ 홈 격자 (아이콘 + 위젯이 같은 칸을 쓴다) ══════════ */
