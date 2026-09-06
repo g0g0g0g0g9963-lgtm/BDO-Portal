@@ -2973,7 +2973,7 @@ function paintLib(){
         <button class="lic${hasIco(id)?' img':''}" data-lopen="${id}" style="--g:${a.bg};${a.fg?`color:${a.fg}`:''};${icoBg(id)}" title="${a.name} 열기">${hasIco(id)?'':a.short}</button>
         <div class="ln"><b>${a.name}${a.soon?'<span class="soonpill">예정</span>':''}</b><small>${a.sub||''}</small></div>
         <span class="studioCatName" style="--dot:${cat?.dot||'#8290a0'}"><i></i>${cat?.n||'기타'}</span>
-        ${on?`<button class="onhomeBtn" data-lremove="${id}" aria-label="${a.name} 홈에서 빼기"><span class="s1">홈에 있음</span><span class="s2">빼기</span></button>`:''}
+        ${on?`<button class="onhomeBtn" data-lremove="${id}" aria-label="${a.name} 홈에서 제거"><span class="s1">사용 중</span><span class="s2">제거</span></button>`:''}
       </article>`;}).join('');
     const homeCount=layout.filter(o=>o.k==='a').length;
     const home=`<aside class="studioHome"><div class="studioHomeHd"><div><h3>홈 배치</h3><span>앱 ${homeCount}개</span></div><p>앱을 드래그해서 원하는 구역에 놓으세요</p></div>
