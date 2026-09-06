@@ -361,9 +361,7 @@ background:rgba(255,255,255,.92);opacity:0;transition:opacity .2s}
 font-weight:600;color:#1D1D1F;background:rgba(255,255,255,.95);padding:4px 10px;border-radius:7px;
 box-shadow:0 4px 14px rgba(0,0,0,.22);opacity:0;pointer-events:none;transition:opacity .15s}
 .dk:hover .tip{opacity:1}
-.dockNav{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:20px;margin-right:20px;
-background:var(--wgBg);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
-box-shadow:0 8px 22px rgba(20,30,45,.14),0 1px 0 rgba(255,255,255,.4) inset}
+.dsep{width:1px;height:34px;background:var(--fg);opacity:.16;border-radius:1px}
 /* Dock 맨 앞 검색·홈에 추가 버튼 — 앱 아이콘처럼 불투명한 판으로 떠 있어야 뒤 내용이 비치지 않는다 */
 .dk.dsearch{color:var(--dkBtnFg,#3A3A3C)}
 .dk.dsearch .dksurf{background:var(--dkBtn,#E4E6EA);border:none;
@@ -840,6 +838,7 @@ body.compact .dk{width:44px;height:44px;font-size:10.5px;flex-shrink:0}
 body.phone .dock{gap:8px}
 body.phone .dk{width:40px;height:40px;font-size:9.5px}
 body.compact .dk .tip{display:none}
+body.compact .dsep{height:28px}
 body.compact .dots{bottom:calc(82px + env(safe-area-inset-bottom,0px) + var(--vvb,0px))}
 body.compact .homebar{display:none}
 body.compact .toast{bottom:calc(98px + env(safe-area-inset-bottom,0px) + var(--vvb,0px));max-width:calc(100vw - 32px);text-align:center}
@@ -1187,18 +1186,17 @@ body:not([data-theme="dark"]) .zone .zl{background:#fff;border-color:rgba(20,30,
 <div class="snap" id="snap"></div>
 <div class="dockzone"></div>
 <div class="dock" id="dock">
-  <div class="dockNav">
-    <button class="dk dsearch" id="dockSearch" aria-label="검색" title="검색 (⌘K / Ctrl+K)">
-      <span class="dksurf"></span>
-      <svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
-      <span class="tip">검색 · ⌘K</span>
-    </button>
-    <button class="dk dsearch" id="dockLib" aria-label="홈에 추가" title="홈에 추가 (App · 위젯 · 구역)">
-      <span class="dksurf"></span>
-      <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>
-      <span class="tip">홈에 추가 · App · 위젯 · 구역</span>
-    </button>
-  </div>
+  <button class="dk dsearch" id="dockSearch" aria-label="검색" title="검색 (⌘K / Ctrl+K)">
+    <span class="dksurf"></span>
+    <svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
+    <span class="tip">검색 · ⌘K</span>
+  </button>
+  <button class="dk dsearch" id="dockLib" aria-label="홈에 추가" title="홈에 추가 (App · 위젯 · 구역)">
+    <span class="dksurf"></span>
+    <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>
+    <span class="tip">홈에 추가 · App · 위젯 · 구역</span>
+  </button>
+  <div class="dsep"></div>
 </div>
 
 <!-- 모든 App 서랍 -->
