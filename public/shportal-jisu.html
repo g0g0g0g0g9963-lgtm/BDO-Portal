@@ -1897,21 +1897,21 @@ const kalLines=()=>kalLog.slice(-8).map(m=>`<div class="kb ${m.r}"><span class="
   +(kalBusy?'<div class="kb ai typing"><i></i><i></i><i></i></div>':'');
 const WIDGETS={
   kal:{open:'ai', cls:'kalw', body:()=>`
-    <div class="hd"><span class="sq" style="background-image:url(${ICONS.robot_cut})"></span>AI 칼<span class="cnt"> · 응답 가능</span></div>
+    <div class="hd">AI 칼<span class="cnt"> · 응답 가능</span></div>
     <div class="klines">${kalLines()}</div>
     <div class="kchips"><button data-kq="오늘 마감 일정 알려줘">오늘 마감</button><button data-kq="리뷰 대기 조서 정리해줘">리뷰 대기</button><button data-kq="ISQM1 보고서 목차 잡아줘">ISQM1 목차</button></div>
     <div class="kinw"><input class="kin" type="text" placeholder="칼에게 물어보기…" maxlength="300" aria-label="칼에게 물어보기">
       <button class="kgo" data-kgo aria-label="보내기"><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div>`},
   dday:{open:'cal', cls:'deadline', body:()=>`
-    <div class="hd"><span class="sq" style="background:#FFB454;color:#1A2530">!</span>내 일정<button class="plusbtn" data-open="room" title="회의실 예약하기" aria-label="회의실 예약하기">＋</button></div>
+    <div class="hd">내 일정<button class="plusbtn" data-open="room" title="회의실 예약하기" aria-label="회의실 예약하기">＋</button></div>
     <div class="big tn">D-12</div>
     <div class="cap"><b>ISQM1 품질관리보고서</b><br>품질관리본부 · 4월 17일 (금) 마감</div>
     <div class="more agenda">${agendaRows()}</div>`},
   memo:{open:'memo', body:()=>`
-    <div class="hd"><span class="sq" style="background:#E9B840;color:#3A2A05">M</span>메모</div>
+    <div class="hd">메모</div>
     <div class="mlines">${memoLines()}</div>`},
   notice:{open:'notice', body:()=>`
-    <div class="hd"><span class="sq" style="background:var(--slate)">N</span>공지사항</div>
+    <div class="hd">공지사항</div>
     <div class="ntabs-w">
       <span data-ntab="all" class="${noticeTab==='all'?'on':''}">전체</span>
       <span data-ntab="qrm" class="${noticeTab==='qrm'?'on':''}">품질관리실</span>
@@ -1919,7 +1919,7 @@ const WIDGETS={
     <div class="nlist">${noticeFiltered().map(n=>`<div class="nrow"><span class="tg ${n.cls==='f'?'u':''}">${n.tag}</span><span class="t">${n.t}</span>
         <span class="d tn">${n.d}</span></div>`).join('')}</div>`},
   team:{open:'team', body:()=>`
-    <div class="hd"><span class="sq" style="background:#5B45B8">T</span>팀 스페이스<button class="plusbtn" data-tnew="1" title="새 스페이스 만들기" aria-label="새 스페이스 만들기">＋</button></div>
+    <div class="hd">팀 스페이스<button class="plusbtn" data-tnew="1" title="새 스페이스 만들기" aria-label="새 스페이스 만들기">＋</button></div>
     ${TEAMS.map(t=>{ const p=t.posts[0]; return `
       <div class="tw-row" data-topenhome="${t.id}">
         <span class="tw-av" style="background:${t.color}">${t.avatar}</span>
@@ -1932,7 +1932,7 @@ const WIDGETS={
   timesheet:{open:'timesheet', body:()=>{
     const pct=tsPct(), r=25, circ=2*Math.PI*r;
     return `
-    <div class="hd"><span class="sq" style="background:#3A6FD8">T</span>이번 주 타임시트 현황</div>
+    <div class="hd">이번 주 타임시트 현황</div>
     <div class="tmgrid">
       <div class="tmcell"><span>승인 요청</span><b>${tsCount('pending')}</b></div>
       <div class="tmcell"><span>승인 완료</span><b>${tsCount('ok')}</b></div>
