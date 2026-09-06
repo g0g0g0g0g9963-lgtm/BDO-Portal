@@ -437,16 +437,6 @@ border:1px solid var(--btnBorder);background:var(--btnBg);color:var(--fg);opacit
 .ltg:hover{opacity:1}
 .ltg.on{background:var(--red);border-color:transparent;color:#fff;opacity:1}
 .lcard.soon .ltg{visibility:hidden}
-.lplace{position:relative;flex-shrink:0}
-.lpop{position:absolute;top:calc(100% + 6px);right:0;z-index:20;width:176px;padding:6px;border-radius:12px;
-background:var(--menuBg);border:1px solid var(--menuLine);box-shadow:0 16px 40px rgba(20,30,45,.16)}
-.lpop .h{font-size:calc(9px * var(--fz));font-weight:800;letter-spacing:.5px;text-transform:uppercase;opacity:.42;padding:5px 9px 7px}
-.lpop button{width:100%;display:flex;align-items:center;gap:8px;text-align:left;padding:8px 9px;border-radius:9px;color:var(--fg);
-font-size:calc(11.5px * var(--fz));font-weight:650;opacity:.85;transition:background .15s}
-.lpop button:hover{background:var(--menuHov);opacity:1}
-.lpop button i{width:7px;height:7px;border-radius:50%;background:var(--dot,#8997a8);flex-shrink:0}
-.lpop button b{margin-left:auto;font-size:calc(9.5px * var(--fz));font-weight:800;opacity:.5}
-.lpop .empty{padding:10px 9px;font-size:calc(10.5px * var(--fz));opacity:.5;text-align:center}
 .libtabs{display:flex;gap:2px;background:var(--btnBg);border-radius:99px;padding:3px;margin-left:8px;flex-shrink:0}
 .libtabs button{font-size:calc(12px * var(--fz));font-weight:700;padding:5px 13px;border-radius:99px;color:var(--fg);opacity:.6;white-space:nowrap}
 .libtabs button.on{background:var(--menuBg);opacity:1;box-shadow:0 1px 4px rgba(14,22,30,.12)}
@@ -1157,7 +1147,7 @@ body:not([data-theme="dark"]) .zone .zl{background:#fff;border-color:rgba(20,30,
 .studioCats{padding:15px 11px;background:color-mix(in srgb,var(--menuBg) 94%,var(--fg) 6%);border-right:1px solid var(--menuLine);overflow-y:auto}.studioCats .slabel{font-size:calc(9px * var(--fz));font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.42;padding:5px 10px 8px}.studioCat{width:100%;display:flex;align-items:center;gap:9px;text-align:left;padding:9px 10px;border-radius:10px;color:var(--fg);font-size:calc(11px * var(--fz));font-weight:720;opacity:.68;transition:all .15s}.studioCat:hover{background:var(--menuHov);opacity:1}.studioCat.on{background:color-mix(in srgb,var(--blue) 11%,var(--menuBg));color:var(--blue);opacity:1}.studioCat i{width:7px;height:7px;border-radius:50%;background:var(--dot,#8997a8);box-shadow:0 0 0 4px color-mix(in srgb,var(--dot,#8997a8) 12%,transparent)}.studioCat b{margin-left:auto;min-width:24px;padding:2px 7px;border-radius:99px;text-align:center;font-size:calc(9px * var(--fz));background:var(--btnBg);color:var(--fg);opacity:.66}.studioCat.on b{background:var(--menuBg);color:var(--blue);opacity:1}
 .studioApps{padding:17px 18px 24px;overflow-y:auto;background:var(--pageBg)}.studioTitle{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.studioTitle h3{font-size:calc(14px * var(--fz));font-weight:800;letter-spacing:-.2px}.studioTitle p{font-size:calc(9.5px * var(--fz));opacity:.54;margin-top:3px}.studioTitle .studioCount{font-size:calc(9.5px * var(--fz));padding:5px 8px;border-radius:99px;background:var(--menuBg);border:1px solid var(--menuLine);opacity:.7;white-space:nowrap}
 .studioApps .lgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.studioApps .lcard{position:relative;display:grid;grid-template-columns:46px minmax(0,1fr);grid-template-rows:auto auto;align-items:center;gap:8px 11px;min-height:116px;padding:13px;border:1px solid var(--menuLine);border-radius:15px;background:var(--menuBg);box-shadow:0 4px 12px rgba(19,42,70,.035);transition:transform .16s,box-shadow .16s,border-color .16s}.studioApps .lcard:hover{background:var(--menuBg);border-color:color-mix(in srgb,var(--blue) 32%,var(--menuLine));box-shadow:0 12px 26px rgba(19,42,70,.10);transform:translateY(-2px)}.studioApps .lcard.picked{border-color:color-mix(in srgb,var(--blue) 62%,var(--menuLine));box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 9%,transparent),0 12px 26px rgba(19,42,70,.1)}.studioApps .lcard[draggable="true"]{cursor:grab}.studioApps .lcard[draggable="true"]:active{cursor:grabbing}
-.studioApps .lcard .lic{grid-row:1/3;width:46px;height:46px;border-radius:13px;mask:none;-webkit-mask:none;overflow:hidden;box-shadow:0 6px 13px rgba(18,39,66,.14)}.studioApps .lcard .lic:hover{transform:none}.studioApps .lcard .ln{width:100%;min-width:0;padding-right:56px}.studioApps .lcard .ln b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:calc(11px * var(--fz));font-weight:800}.studioApps .lcard .ln small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:calc(9.5px * var(--fz));margin-top:3px}.studioApps .lcard .ltg{position:absolute;right:9px;top:9px;border:0;border-radius:9px;padding:6px 8px;background:color-mix(in srgb,var(--blue) 9%,var(--menuBg));color:var(--blue);opacity:1;font-size:calc(9px * var(--fz));font-weight:800}.studioApps .lcard .ltg:hover,.studioApps .lcard .ltg.on{background:var(--blue);color:#fff}.studioApps .lcard .lremove{position:absolute;right:9px;bottom:9px;padding:3px 0;color:var(--txt3);font-size:calc(8.5px * var(--fz));font-weight:700}.studioApps .lcard .lremove:hover{color:var(--red)}.studioApps .lcard.soon{opacity:.66}.studioApps .lcard.soon .ltg{visibility:hidden}.studioCatName{display:inline-flex;align-items:center;gap:5px;grid-column:2;margin-top:auto;font-size:calc(8.5px * var(--fz));font-weight:700;opacity:.46}.studioCatName i{width:5px;height:5px;border-radius:50%;background:var(--dot)}
+.studioApps .lcard .lic{grid-row:1/3;width:46px;height:46px;border-radius:13px;mask:none;-webkit-mask:none;overflow:hidden;box-shadow:0 6px 13px rgba(18,39,66,.14)}.studioApps .lcard .lic:hover{transform:none}.studioApps .lcard .ln{width:100%;min-width:0;padding-right:56px}.studioApps .lcard .ln b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:calc(11px * var(--fz));font-weight:800}.studioApps .lcard .ln small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:calc(9.5px * var(--fz));margin-top:3px}.studioApps .lcard .lremove{position:absolute;right:9px;top:9px;border:0;border-radius:9px;padding:6px 9px;background:color-mix(in srgb,var(--red) 10%,var(--menuBg));color:var(--red);font-size:calc(9.5px * var(--fz));font-weight:800}.studioApps .lcard .lremove:hover{background:var(--red);color:#fff}.studioApps .lcard.soon{opacity:.66}.studioCatName{display:inline-flex;align-items:center;gap:5px;grid-column:2;margin-top:auto;font-size:calc(9.5px * var(--fz));font-weight:750;opacity:.65}.studioCatName i{width:5px;height:5px;border-radius:50%;background:var(--dot)}.studioCatName .onhome{margin-left:4px;padding:2px 8px;border-radius:99px;background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok);font-weight:800;font-size:calc(9px * var(--fz));opacity:1}
 .studioHome{padding:14px 12px 18px;background:color-mix(in srgb,var(--menuBg) 91%,var(--fg) 9%);border-left:1px solid var(--menuLine);overflow-y:auto}.studioHomeHd{padding:1px 3px 10px}.studioHomeHd>div:first-child{display:flex;align-items:center;justify-content:space-between}.studioHomeHd h3{font-size:calc(12px * var(--fz));font-weight:800}.studioHomeHd span{font-size:calc(9px * var(--fz));opacity:.5}.studioHomeHd p{margin-top:3px;font-size:calc(9px * var(--fz));color:var(--txt3)}
 .studioSelection{display:flex;align-items:center;gap:9px;min-height:48px;padding:9px 10px;margin-bottom:9px;border:1px dashed color-mix(in srgb,var(--blue) 32%,var(--menuLine));border-radius:12px;background:color-mix(in srgb,var(--blue) 5%,var(--menuBg));color:var(--txt3)}.studioSelection.has{border-style:solid;border-color:color-mix(in srgb,var(--blue) 40%,var(--menuLine));color:var(--fg)}.studioSelection .studioMini{flex:0 0 auto}.studioSelection b{display:block;font-size:calc(9.5px * var(--fz));overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.studioSelection small{display:block;margin-top:2px;font-size:calc(8.5px * var(--fz));color:var(--txt3)}
 .studioZone{position:relative;padding:10px;margin-bottom:8px;border:1px solid var(--menuLine);border-radius:13px;background:var(--menuBg);transition:border-color .14s,box-shadow .14s,transform .14s}.studioZone.active{border-color:color-mix(in srgb,var(--blue) 44%,var(--menuLine));box-shadow:0 0 0 2px color-mix(in srgb,var(--blue) 8%,transparent)}.studioZone.dragover{border-color:var(--blue);box-shadow:0 0 0 4px color-mix(in srgb,var(--blue) 10%,transparent);transform:scale(1.015)}.studioZoneTitle{display:flex;align-items:center;gap:7px;font-size:calc(10px * var(--fz));font-weight:800}.studioZoneTitle i{width:6px;height:6px;border-radius:50%}.studioZoneTitle span{margin-left:auto;font-size:calc(8.5px * var(--fz));opacity:.45;font-weight:700}.studioMiniApps{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;min-height:32px}.studioMini{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;color:#fff;font-size:8px;font-weight:800;background:var(--g,#718195);background-repeat:no-repeat!important;background-position:center!important;background-size:100% 100%!important;overflow:hidden;cursor:grab}.studioMini.img{color:transparent}.studioEmpty{margin-top:8px;padding:7px;border:1px dashed var(--menuLine);border-radius:8px;text-align:center;font-size:calc(8.5px * var(--fz));opacity:.45}.studioPlace{width:100%;margin-top:8px;padding:7px 8px;border-radius:8px;border:1px solid color-mix(in srgb,var(--blue) 22%,var(--menuLine));background:color-mix(in srgb,var(--blue) 5%,var(--menuBg));color:var(--blue);font-size:calc(8.8px * var(--fz));font-weight:800}.studioPlace:hover:not(:disabled){background:var(--blue);color:#fff}.studioPlace:disabled{opacity:.44;cursor:default}.studioHint{margin-top:10px;padding:9px;border-radius:10px;text-align:center;color:var(--txt3);font-size:calc(8.8px * var(--fz));font-weight:650;background:var(--btnBg)}
@@ -2939,13 +2929,6 @@ function createZone(name,dot,cs){
 let libTab='app';
 let libCat='all';
 let studioPicked=null;
-let studioPopFor=null;
-function zonePopHtml(id,shownZones){
-  if(!shownZones.length) return `<div class="lpop"><div class="empty">홈에 구역이 없습니다</div></div>`;
-  return `<div class="lpop"><div class="h">어느 구역에 넣을까요?</div>
-    ${shownZones.map(z=>{const zz=zones[z.id]; return `<button data-zone-pick="${id}|${z.id}"><i style="--dot:${zz.dot}"></i>${zz.n}<b>${zoneApps(z).length}개</b></button>`;}).join('')}
-  </div>`;
-}
 const LIB_PH={app:'앱 검색', wg:'위젯 검색', zone:'구역 검색'};
 function navHtml(){
   const cats=Object.entries(zones);
@@ -2981,19 +2964,15 @@ function paintLib(){
       return `<article class="lcard${a.soon?' soon':''}" data-lid="${id}" draggable="${!a.soon}" aria-label="${a.name}">
         <button class="lic${hasIco(id)?' img':''}" data-lopen="${id}" style="--g:${a.bg};${a.fg?`color:${a.fg}`:''};${icoBg(id)}" title="${a.name} 열기">${hasIco(id)?'':a.short}</button>
         <div class="ln"><b>${a.name}${a.soon?'<span class="soonpill">예정</span>':''}</b><small>${a.sub||''}</small></div>
-        <span class="studioCatName" style="--dot:${cat?.dot||'#8290a0'}"><i></i>${cat?.n||'기타'}${on?' · 홈에 있음':''}</span>
-        <div class="lplace">
-          <button class="ltg${studioPopFor===id?' on':''}" data-lplace="${id}" aria-label="${a.name} 배치 위치 선택">배치 ▾</button>
-          ${studioPopFor===id?zonePopHtml(id,shownZones):''}
-        </div>
+        <span class="studioCatName" style="--dot:${cat?.dot||'#8290a0'}"><i></i>${cat?.n||'기타'}${on?'<b class="onhome">홈에 있음</b>':''}</span>
         ${on?`<button class="lremove" data-lremove="${id}">홈에서 빼기</button>`:''}
       </article>`;}).join('');
     const homeCount=layout.filter(o=>o.k==='a').length;
-    const home=`<aside class="studioHome"><div class="studioHomeHd"><div><h3>홈 배치</h3><span>앱 ${homeCount}개</span></div><p>끌어놓거나 위치를 바로 지정하세요</p></div>
+    const home=`<aside class="studioHome"><div class="studioHomeHd"><div><h3>홈 배치</h3><span>앱 ${homeCount}개</span></div><p>앱을 끌어다 원하는 구역에 놓으세요</p></div>
       ${shownZones.map(z=>{const apps=zoneApps(z).sort((a,b)=>a.r-b.r||a.c-b.c);return `<section class="studioZone${libCat===z.id?' active':''}" data-drop-zone="${z.id}"><div class="studioZoneTitle"><i style="background:${zones[z.id].dot}"></i>${zones[z.id].n}<span>${apps.length}개</span></div>${apps.length?`<div class="studioMiniApps">${apps.slice(0,8).map(o=>{const a=APPS[o.id];return `<span class="studioMini${hasIco(o.id)?' img':''}" data-mid="${o.id}" draggable="true" style="--g:${a.bg};${icoBg(o.id)}" title="${a.name} · 다른 구역으로 이동">${hasIco(o.id)?'':a.short}</span>`;}).join('')}</div>`:'<div class="studioEmpty">비어 있음 · 여기에 끌어놓기</div>'}</section>`;}).join('')}
-      <div class="studioHint">앱 카드나 오른쪽 아이콘을 원하는 구역으로 끌어놓을 수도 있어요</div></aside>`;
+      <div class="studioHint">앱 카드나 오른쪽 아이콘을 원하는 구역으로 끌어놓으세요</div></aside>`;
     const currentName=libCat==='all'?'전체 앱':zones[libCat].n+' 앱';
-    libbody.innerHTML=`<div class="appstudio">${nav}<main class="studioApps"><div class="studioTitle"><div><h3>${currentName}</h3><p>배치 버튼을 눌러 구역을 바로 고르거나, 앱을 오른쪽으로 끌어놓으세요.</p></div><span class="studioCount">${ids.length}개</span></div><div class="lgrid">${cards}</div>${ids.length?'':'<div class="spotempty">일치하는 앱이 없습니다</div>'}</main>${home}</div>`;
+    libbody.innerHTML=`<div class="appstudio">${nav}<main class="studioApps"><div class="studioTitle"><div><h3>${currentName}</h3><p>앱 카드를 오른쪽 구역으로 끌어놓으면 홈에 추가됩니다.</p></div><span class="studioCount">${ids.length}개</span></div><div class="lgrid">${cards}</div>${ids.length?'':'<div class="spotempty">일치하는 앱이 없습니다</div>'}</main>${home}</div>`;
     return;
   }
   if(libTab==='wg'){
@@ -3039,7 +3018,6 @@ document.getElementById('dockLib').addEventListener('click',e=>{ e.stopPropagati
 document.getElementById('libx').addEventListener('click',closeLib);
 libq.addEventListener('input',paintLib);
 lib.addEventListener('pointerdown',e=>{ if(!e.target.closest('.libbox')) closeLib(); });
-libbody.addEventListener('pointerdown',e=>{ if(studioPopFor&&!e.target.closest('.lplace')){ studioPopFor=null; paintLib(); } });
 function setLibTab(t){ libTab=t; }
 libbody.addEventListener('click',e=>{
   const c=e.target.closest('[data-lcat]');
@@ -3050,10 +3028,6 @@ libbody.addEventListener('click',e=>{
   }
   const o=e.target.closest('[data-lopen]');
   if(o){ if(!APPS[o.dataset.lopen].soon){ const r=rectOf(o); closeLib(); openApp(o.dataset.lopen,r); } return; }
-  const lp=e.target.closest('[data-lplace]');
-  if(lp){ studioPopFor=studioPopFor===lp.dataset.lplace?null:lp.dataset.lplace; paintLib(); return; }
-  const zp=e.target.closest('[data-zone-pick]');
-  if(zp){ const [appId,zoneId]=zp.dataset.zonePick.split('|'); placeAppInZone(appId,zoneId); studioPopFor=null; paintLib(); return; }
   const rm=e.target.closest('[data-lremove]');
   if(rm){ const id=rm.dataset.lremove; removeFromHome(id); if(studioPicked===id) studioPicked=null; paintLib(); return; }
   const w=e.target.closest('[data-wtoggle]');
