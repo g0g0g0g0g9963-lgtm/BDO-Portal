@@ -567,6 +567,14 @@ display:flex;align-items:center;justify-content:center}
 .tagp{font-size:calc(10px * var(--fz));font-weight:700;padding:2.5px 8px;border-radius:99px;white-space:nowrap}
 .tagp.f{background:#FDECEF;color:var(--red)}.tagp.r{background:#EAF3FB;color:var(--blue)}
 .tagp.o{background:#E9F6EF;color:var(--ok)}.tagp.a{background:#FDF3E6;color:var(--amber)}
+.apptabs{display:flex;gap:6px;margin:14px 0 4px}
+.apptabs span{font-size:calc(12px * var(--fz));font-weight:700;padding:7px 15px;border-radius:9px;color:var(--txt2);
+  background:var(--wgTrack);cursor:pointer}
+.apptabs span.on{background:var(--ink);color:#fff}
+.wg .ntabs-w{display:flex;gap:4px;margin:2px 0 8px}
+.wg .ntabs-w span{font-size:calc(9.5px * var(--fz));font-weight:700;padding:3px 9px;border-radius:6px;
+  color:var(--wgFg);opacity:.6;background:var(--wgTrack);cursor:pointer}
+.wg .ntabs-w span.on{opacity:1;background:var(--wgFg);color:var(--wgBg)}
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{text-align:left;font-size:calc(9.5px * var(--fz));font-weight:800;letter-spacing:.8px;color:var(--txt3);padding:9px 14px;
 border-bottom:.5px solid var(--line);text-transform:uppercase;background:#FAFAFB;position:sticky;top:0}
@@ -758,8 +766,8 @@ body[data-theme="dark"] .kchips button{background:rgba(255,255,255,.1);border-co
    창은 전체 화면 시트로 연다. 배치 데이터는 그대로 두고 그리는 방식만 바꾼다. */
 /* 넓지만 낮은 화면(노트북)에서는 인사말을 줄여 격자 칸 높이를 확보한다 */
 @media (max-height:840px){
-  body:not(.compact) .home{padding-top:6px;gap:6px}
-  body:not(.compact) .greet h1{font-size:30px;letter-spacing:-0.4px;line-height:1.15}
+  body:not(.compact) .home{padding-top:0px;gap:22px}
+  body:not(.compact) .greet h1{font-size:46px;letter-spacing:-0.5px;line-height:1.15}
   body:not(.compact) .greet p,body:not(.compact) .greet .datechip{font-size:13px;margin-top:3px}
   body:not(.compact) .hgrid{gap:12px}
 }
@@ -1387,6 +1395,36 @@ const MANUAL_EVENTS=[
   {t:'알파테크 현장 실사', time:'09:30'},
   {t:'감마물산 보고서 제출', time:'D-6'}
 ];
+/* ── 공지사항: 전체 / 품질관리실 탭 ── */
+const NOTICES=[
+  {tag:'긴급', cls:'f', t:'ISQM1 2026년 품질관리 보고서 작성 안내', src:'품질관리본부', d:'04/03', qrm:1},
+  {tag:'감사', cls:'f', t:'외부감사 EQR 배정표 회람 (4.24 기준)', src:'품질관리본부', d:'04/24', qrm:1},
+  {tag:'독립성', cls:'r', t:'투자금지 리스트 업데이트 (26-04-15 기준)', src:'품질관리본부', d:'04/15', qrm:1},
+  {tag:'독립성', cls:'r', t:'감사수임 전 수행한 직무제한 비감사용역 안내', src:'품질관리본부', d:'04/02', qrm:1},
+  {tag:'규정', cls:'r', t:'내부회계관리제도 감사 매뉴얼 v3 배포', src:'품질관리본부', d:'03/25', qrm:1},
+  {tag:'업데이트', cls:'o', t:'SH Audit Platform 기초정보 기능 오픈', src:'IT본부', d:'04/02'},
+  {tag:'일정', cls:'o', t:'4월 파트너 월례회의 (15일 14시)', src:'경영지원실', d:'04/01'},
+  {tag:'구독', cls:'o', t:'삼일 TAX Agent 법인 구독 완료', src:'경영지원실', d:'03/28'},
+  {tag:'교육', cls:'a', t:'2026 상반기 필수 교육 이수 안내 (6/30까지)', src:'인사팀', d:'03/20'}
+];
+let noticeTab='all';
+const noticeFiltered=()=>noticeTab==='qrm'?NOTICES.filter(n=>n.qrm):NOTICES;
+document.addEventListener('click', e=>{
+  const nt=e.target.closest('[data-ntab]');
+  if(nt){
+    noticeTab=nt.dataset.ntab;
+    document.querySelectorAll('[data-ntab]').forEach(b=>b.classList.toggle('on', b.dataset.ntab===noticeTab));
+    document.querySelectorAll('.wg[data-id="notice"]').forEach(w=>{
+      const el=w.querySelector('.nlist'); if(!el) return;
+      el.innerHTML=noticeFiltered().map(n=>`<div class="nrow"><span class="tg ${n.cls==='f'?'u':''}">${n.tag}</span><span class="t">${n.t}</span>
+        <span class="d tn">${n.d}</span></div>`).join('');
+      fitWidget(w);
+    });
+    repaintApp('notice');
+    return;
+  }
+});
+
 let TEAMS=[
   {id:'alpha', name:'알파테크 감사팀', avatar:'알파', color:'#D3374F',
     meta:'구성원 6명 · 김회계 개설 · 4/1',
@@ -1670,16 +1708,14 @@ const APPS = {
       <div class="dband"><div class="dd tn">D-12</div>
         <div><div class="tt2">ISQM1 2026년 품질관리보고서</div><div class="mm">4월 17일 (금) 마감 · 미제출 3개 본부</div></div>
         <button>작성하기</button></div>
+      <div class="apptabs">
+        <span data-ntab="all" class="${noticeTab==='all'?'on':''}">전체</span>
+        <span data-ntab="qrm" class="${noticeTab==='qrm'?'on':''}">품질관리실</span>
+      </div>
       <div class="rows">
-        ${[['긴급','f','ISQM1 2026년 품질관리 보고서 작성 안내','품질관리본부','04/03'],
-           ['업데이트','r','SH Audit Platform 기초정보 기능 오픈','IT본부','04/02'],
-           ['일정','o','4월 파트너 월례회의 (15일 14시)','경영지원실','04/01'],
-           ['구독','o','삼일 TAX Agent 법인 구독 완료','경영지원실','03/28'],
-           ['규정','r','내부회계관리제도 감사 매뉴얼 v3 배포','품질관리본부','03/25'],
-           ['교육','o','2026 상반기 필수 교육 이수 안내 (6/30까지)','인사팀','03/20']]
-          .map(n=>`<div class="r" style="grid-template-columns:calc(52px * var(--fz)) 1fr auto"><span class="tagp ${n[1]}" style="text-align:center">${n[0]}</span>
-            <div><div class="t">${n[2]}</div><div class="m">${n[3]}</div></div>
-            <div class="rt tn" style="min-width:44px;font-size:calc(10.5px * var(--fz));color:var(--txt3)">${n[4]}</div></div>`).join('')}
+        ${noticeFiltered().map(n=>`<div class="r" style="grid-template-columns:calc(52px * var(--fz)) 1fr auto"><span class="tagp ${n.cls}" style="text-align:center">${n.tag}</span>
+            <div><div class="t">${n.t}</div><div class="m">${n.src}</div></div>
+            <div class="rt tn" style="min-width:44px;font-size:calc(10.5px * var(--fz));color:var(--txt3)">${n.d}</div></div>`).join('')}
       </div>
     </div>`},
   cal:{name:'일정', sub:'2026년 4월', short:'4월 5', bg:G.cal, fg:'#1D1D1F', w:720, h:540, body:()=>{
@@ -1813,14 +1849,12 @@ const WIDGETS={
     <div class="mlines">${memoLines()}</div>`},
   notice:{open:'notice', body:()=>`
     <div class="hd"><span class="sq" style="background:var(--slate)">N</span>공지사항</div>
-    <div class="nlist">${[
-      ['긴급','u','ISQM1 2026년 품질관리 보고서 작성 안내','04/03'],
-      ['업데이트','','SH Audit Platform 기초정보 기능 오픈','04/02'],
-      ['일정','','4월 파트너 월례회의 (15일 14시)','04/01'],
-      ['구독','','삼일 TAX Agent 법인 구독 완료','03/28'],
-      ['규정','','내부회계관리제도 감사 매뉴얼 v3 배포','03/25']
-      ].map(n=>`<div class="nrow"><span class="tg ${n[1]}">${n[0]}</span><span class="t">${n[2]}</span>
-        <span class="d tn">${n[3]}</span></div>`).join('')}</div>`},
+    <div class="ntabs-w">
+      <span data-ntab="all" class="${noticeTab==='all'?'on':''}">전체</span>
+      <span data-ntab="qrm" class="${noticeTab==='qrm'?'on':''}">품질관리실</span>
+    </div>
+    <div class="nlist">${noticeFiltered().map(n=>`<div class="nrow"><span class="tg ${n.cls==='f'?'u':''}">${n.tag}</span><span class="t">${n.t}</span>
+        <span class="d tn">${n.d}</span></div>`).join('')}</div>`},
   team:{open:'team', body:()=>`
     <div class="hd"><span class="sq" style="background:#5B45B8">T</span>팀 스페이스<button class="plusbtn" data-tnew="1" title="새 스페이스 만들기" aria-label="새 스페이스 만들기">＋</button></div>
     ${TEAMS.map(t=>{ const p=t.posts[0]; return `
