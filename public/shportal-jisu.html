@@ -1092,6 +1092,18 @@ body:not([data-theme="dark"]) .zone .zl{background:#fff;border-color:rgba(20,30,
 .tsmember .av2{width:30px;height:30px;border-radius:50%;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;flex:0 0 auto}
 .tsmember .nm2{font-size:13px;font-weight:650}
 .tsmember .rl{font-size:11px;color:var(--txt3);margin-left:auto}
+
+/* ══ 팀 스페이스 위젯 · 메시지 미리보기형 ══ */
+.tw-row{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-top:1px solid var(--wgTrack);cursor:pointer}
+.tw-row:first-of-type{border-top:0}
+.tw-av{width:28px;height:28px;border-radius:24%;color:#fff;display:grid;place-items:center;font-size:9.5px;font-weight:800;flex:0 0 auto}
+.tw-body{min-width:0;flex:1}
+.tw-top{display:flex;align-items:baseline;gap:6px}
+.tw-nm{font-size:calc(11px * var(--fz));font-weight:750}
+.tw-tm{margin-left:auto;font-size:calc(9.5px * var(--fz));color:var(--txt3)}
+.tw-snip{font-size:calc(10.5px * var(--fz));color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+.tw-snip b{color:var(--wgFg);font-weight:650}
+.tw-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex:0 0 auto;margin-top:6px}
 </style>
 </head>
 <body>
@@ -1380,9 +1392,9 @@ let TEAMS=[
     members:[['윤길배','#D3374F','업무수행이사'],['정인훈','#5C6E80','EQR'],['박선영','#DFA748','매니저'],
       ['김회계','#2F82C9','In-charge'],['이수현','#17836A','Staff'],['한지민','#7B62D2','Staff']],
     posts:[
-      {pin:1, t:'현장 마지막 주 일정 조정', m:'박선영 매니저 · 2시간 전 · 읽음 4/6'},
-      {t:'재고실사 입회 배정표 확정했습니다', m:'김회계 · 어제 · 읽음 6/6'},
-      {t:'경영진 확인서 초안 회람 부탁드립니다', m:'이수현 · 4/3 · 읽음 5/6'}
+      {pin:1, t:'현장 마지막 주 일정 조정', by:'박선영 매니저', time:'2시간', m:'박선영 매니저 · 2시간 전 · 읽음 4/6'},
+      {t:'재고실사 입회 배정표 확정했습니다', by:'김회계', time:'어제', m:'김회계 · 어제 · 읽음 6/6'},
+      {t:'경영진 확인서 초안 회람 부탁드립니다', by:'이수현', time:'4/3', m:'이수현 · 4/3 · 읽음 5/6'}
     ],
     files:[
       {ex:'XLS', c:'#1F9D61', t:'재고실사 배정표 v3', m:'2시간 전'},
@@ -1398,7 +1410,7 @@ let TEAMS=[
   {id:'ax', name:'AX 추진 TF', avatar:'AX', color:'#7B62D2',
     meta:'구성원 4명 · 정인훈 개설 · 3/20',
     members:[['정인훈','#5C6E80','리더'],['윤길배','#D3374F','자문'],['한지민','#7B62D2','간사'],['최도영','#2F82C9','팀원']],
-    posts:[{t:'2분기 AI 도입 로드맵 초안 공유', m:'정인훈 · 어제 · 읽음 3/4'}],
+    posts:[{t:'2분기 AI 도입 로드맵 초안 공유', by:'정인훈', time:'어제', m:'정인훈 · 어제 · 읽음 3/4'}],
     files:[{ex:'PDF', c:'#E81A3B', t:'AX 로드맵 v0.2', m:'어제'}],
     events:[{d:'4/10', t:'로드맵 리뷰 회의'}]}
 ];
@@ -1515,6 +1527,8 @@ function teamTabPanel(t,tab){
 document.addEventListener('click', e=>{
   const to=e.target.closest('[data-topen]');
   if(to){ teamCur=to.dataset.topen; teamView='detail'; repaintApp('team'); return; }
+  const th=e.target.closest('[data-topenhome]');
+  if(th){ teamCur=th.dataset.topenhome; teamView='detail'; if(wins.has('team')) repaintApp('team'); return; }
   const tb=e.target.closest('[data-tback]');
   if(tb){ teamView='list'; teamCur=null; repaintApp('team'); return; }
   const tn=e.target.closest('[data-tnew]');
@@ -1647,22 +1661,6 @@ const APPS = {
            ['자본총계','842,900','842,900','—','o']]
           .map(r=>`<tr><td><b>${r[0]}</b></td><td class="tn">${r[1]}</td><td class="tn">${r[2]}</td><td><span class="tagp ${r[4]}">${r[3]}</span></td></tr>`).join('')}
       </table>
-    </div>`},
-  aqi:{name:'AQI 지표', sub:'2026 Q2', short:'AQI', bg:G.aqi, w:640, h:520, body:()=>`
-    <div class="pad">
-      <div class="h1">감사품질지표<span>.</span></div>
-      <div class="hsub">성현회계법인 · 2026년 2분기 기준 · 금감원 AQI 10개 지표</div>
-      <div class="aqihero">
-        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke-width="10" stroke="#EFEFF2"/>
-        <circle cx="50" cy="50" r="42" fill="none" stroke-width="10" stroke="#1F9D61" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="20.1"/></svg>
-        <div><div class="val tn">92.4<small>/100</small></div>
-        <div class="d">전분기 대비 <b style="color:#1F9D61">+1.8</b> · 업계 상위 12%<br>10개 지표 중 8개가 업계 평균 이상입니다.</div></div>
-      </div>
-      <div class="sh"><h3>지표별 점수</h3><a href="#">산출 근거</a></div>
-      ${[['감사시간 투입','96','#1F9D61'],['핵심감사인력 비율','94','#1F9D61'],['품질관리인력 비중','91','#1F9D61'],
-         ['감사인 경력','89','#1F9D61'],['교육시간','88','#1F9D61'],['감리 지적 이력','97','#1F9D61'],
-         ['이직률','74','#C77414'],['보수 적정성','86','#1F9D61'],['내부 심리 비중','68','#E81A3B'],['IT 투자','93','#1F9D61']]
-        .map(m=>`<div class="metric"><div class="n">${m[0]}</div><div class="tr"><i style="width:${m[1]}%;background:${m[2]}"></i></div><div class="v tn">${m[1]}</div></div>`).join('')}
     </div>`},
   notice:{name:'공지사항', sub:'전사', short:'공지', bg:G.notice, badge:3, w:700, h:480, body:()=>`
     <div class="pad">
@@ -1809,30 +1807,6 @@ const WIDGETS={
     <div class="big tn">D-12</div>
     <div class="cap"><b>ISQM1 품질관리보고서</b><br>품질관리본부 · 4월 17일 (금) 마감</div>
     <div class="more agenda">${agendaRows()}</div>`},
-  aqi:{open:'aqi', body:()=>`
-    <div class="hd"><span class="sq" style="background:var(--ok)">A</span>AQI 지수</div>
-    <div class="ring">
-      <svg viewBox="0 0 100 100"><circle class="trk" cx="50" cy="50" r="42" fill="none" stroke-width="9"/>
-      <circle class="fgc" cx="50" cy="50" r="42" fill="none" stroke-width="9" stroke-linecap="round"
-        stroke-dasharray="263.9" stroke-dashoffset="20.1"/></svg>
-      <div><div class="val tn">92.4</div><div class="lab">전분기 대비 +1.8<br>업계 상위 12%</div></div>
-    </div>
-    <div class="more">
-      <div class="drow"><span class="dd tn">96</span><span class="t">감사시간 투입</span></div>
-      <div class="drow"><span class="dd tn">74</span><span class="t">이직률</span></div>
-      <div class="drow"><span class="dd tn">68</span><span class="t">내부 심리 비중</span></div>
-    </div>`},
-  proj:{open:'aud', body:()=>`
-    <div class="hd"><span class="sq" style="background:var(--red)">P</span>진행 중 프로젝트<span class="cnt"> · 12건</span></div>
-    <div class="plist">${[
-      ['A','㈜알파테크 제25기 외부감사','현장수행 · 김회계 · D-12',72,G.aud],
-      ['B','㈜베타홀딩스 연결감사','리뷰 · 박회계 · D-19',91,G.k1118],
-      ['C','㈜감마물산 제18기 감사','현장수행 · 이회계 · D-24',45,G.fin],
-      ['E','㈜엡실론소재 반기검토','계획 · 정회계 · D-46',18,G.ins],
-      ['Z','㈜제타건설 내부회계관리제도','계획 · 한회계 · D-58',31,G.xbrl]
-      ].map(r=>`<div class="pitem"><div class="av" style="background:${r[4]}">${r[0]}</div>
-        <div><div class="t">${r[1]}</div><div class="s">${r[2]}</div></div>
-        <div class="pc tn">${r[3]}%</div><div class="pbar"><i style="width:${r[3]}%"></i></div></div>`).join('')}</div>`},
   memo:{open:'memo', body:()=>`
     <div class="hd"><span class="sq" style="background:#E9B840;color:#3A2A05">M</span>메모</div>
     <div class="mlines">${memoLines()}</div>`},
@@ -1848,8 +1822,15 @@ const WIDGETS={
         <span class="d tn">${n[3]}</span></div>`).join('')}</div>`},
   team:{open:'team', body:()=>`
     <div class="hd"><span class="sq" style="background:#5B45B8">T</span>팀 스페이스<button class="plusbtn" data-tnew="1" title="새 스페이스 만들기" aria-label="새 스페이스 만들기">＋</button></div>
-    <div class="nlist">${TEAMS.map(t=>`<div class="nrow"><span class="tg" style="background:${t.color}22;color:${t.color}">${t.avatar}</span>
-      <span class="t">${t.name}</span><span class="d tn">${t.posts.length?t.posts.length+'건':''}</span></div>`).join('')}</div>`}
+    ${TEAMS.map(t=>{ const p=t.posts[0]; return `
+      <div class="tw-row" data-topenhome="${t.id}">
+        <span class="tw-av" style="background:${t.color}">${t.avatar}</span>
+        <div class="tw-body">
+          <div class="tw-top"><span class="tw-nm">${t.name}</span>${p?`<span class="tw-tm">${p.time}</span>`:''}</div>
+          <div class="tw-snip">${p?`<b>${p.by}</b> · ${p.t}`:'아직 전달사항 없음'}</div>
+        </div>
+        ${p?'<span class="tw-dot"></span>':''}
+      </div>`; }).join('')}`}
 };
 
 /* ══════════ 홈 격자 (아이콘 + 위젯이 같은 칸을 쓴다) ══════════ */
@@ -1911,15 +1892,13 @@ const ZONE_COLORS=['#D3374F','#DFA748','#7B62D2','#5C6E80','#232B36','#2F82C9','
 /* 위젯 갤러리 메타 (이름 · 설명 · 기본 크기) */
 const WG_META={
   dday  :{n:'내 일정',       d:'직접 입력 · 회의실 예약 · 팀 스페이스 일정이 모입니다', rs:2,cs:2, dot:'#FFB454', mark:'D-'},
-  aqi   :{n:'AQI 지수',       d:'감사품질지표 링과 주요 항목',       rs:2,cs:2, dot:'#1F9D61', mark:'AQI'},
-  proj  :{n:'진행 중 프로젝트', d:'감사 진행률 상위 5건',              rs:2,cs:4, dot:'#D3374F', mark:'P'},
   notice:{n:'공지사항',       d:'최근 전사 공지 5건',               rs:1,cs:4, dot:'#5C6E80', mark:'N'},
   memo  :{n:'메모',           d:'최근 메모 미리보기 · 눌러서 편집',   rs:2,cs:2, dot:'#E9B840', mark:'M'},
   kal   :{n:'AI 칼',          d:'최근 대화와 바로 묻는 입력칸',       rs:2,cs:2, dot:'#1C1F27', mark:'칼'},
   team  :{n:'팀 스페이스',     d:'내가 속한 스페이스와 새 전달사항',   rs:2,cs:2, dot:'#5B45B8', mark:'T'}
 };
 /* 앱 → 카테고리 (모든 App 서랍의 분류, 홈 추가 시 들어갈 구역) */
-const APP_CAT={aud:'audit',k1118:'audit',xbrl:'audit',fin:'audit',rev:'audit',aqi:'audit',
+const APP_CAT={aud:'audit',k1118:'audit',xbrl:'audit',fin:'audit',rev:'audit',
   tax:'tax',taxadj:'tax',efile:'tax', ins:'adv',law:'adv',valu:'adv',
   cal:'admin',notice:'admin',memo:'admin',erp:'admin',hr:'admin',settings:'admin',room:'admin',team:'admin', ai:'ai',rag:'ai'};
 /* k: 'w' 위젯 · 'z' 존 · 'a' 앱 / r,c: 시작 칸 / rs,cs: 차지하는 칸 수 */
@@ -1927,8 +1906,6 @@ const row=(k,r,c0,ids)=>ids.map((id,i)=>({k,id,r,c:c0+i,rs:1,cs:1}));
 /* 홈에는 지금 쓰는 핵심 앱만 — 나머지는 '모든 App' 서랍에서 꺼내 온다 */
 const LAYOUT_DEFAULT=[
   {k:'w',id:'dday',  r:1,c:1, rs:2,cs:2},
-  {k:'w',id:'aqi',   r:1,c:3, rs:1,cs:2},
-  {k:'w',id:'proj',  r:2,c:3, rs:2,cs:2},
   {k:'w',id:'memo',  r:3,c:1, rs:1,cs:2},
   {k:'w',id:'team',  r:3,c:5, rs:2,cs:2},
   {k:'w',id:'notice',r:4,c:1, rs:2,cs:4},
@@ -1945,7 +1922,7 @@ const LAYOUT_DEFAULT=[
 ];
 const DOCK_DEFAULT=['aud','rev','cal','team','memo'];
 const DOCK_MAX=10;
-const WG_DEF_COLS={dday:2,aqi:2,notice:4,proj:4,memo:2,kal:2,team:2};   /* 축소 비율 기준 */
+const WG_DEF_COLS={dday:2,notice:4,memo:2,kal:2,team:2};   /* 축소 비율 기준 */
 
 let layout=LAYOUT_DEFAULT.map(o=>({...o}));
 let dockOrder=[...DOCK_DEFAULT];
@@ -3269,7 +3246,7 @@ function toggleKal(){ kalOpen?closeKal():openKal(); }
 if(store.get(KKEY)==='1') setKalHidden(true,true);   /* 지난번에 숨겨 두었으면 숨긴 채로 시작 */
 /* "리뷰함 열어줘"처럼 앱을 열어 달라는 말이면 그 앱을 실행한다 */
 const KAL_APP_ALIAS={aud:['sh audit','audit','감사 플랫폼','감사플랫폼','오딧'],rev:['리뷰함','리뷰'],k1118:['1118','분석기'],fin:['금융기관','금융','은행'],
-  xbrl:['xbrl'],aqi:['aqi','품질지표'],notice:['공지'],cal:['일정','캘린더','달력','스케줄'],tax:['tax','세무 에이전트','삼일'],ins:['인사이트'],
+  xbrl:['xbrl'],notice:['공지'],cal:['일정','캘린더','달력','스케줄'],tax:['tax','세무 에이전트','삼일'],ins:['인사이트'],
   law:['소송'],erp:['erp'],rag:['규정','rag'],taxadj:['세무조정'],efile:['전자신고'],valu:['가치평가','밸류'],hr:['인사','근태'],memo:['메모','스티커'],settings:['설정'],
   room:['회의실','예약','회의실 예약'],team:['팀 스페이스','팀스페이스','스페이스']};
 /* 을/를 — 마지막 글자의 받침으로 고른다 (한글이 아니면 '을(를)') */
