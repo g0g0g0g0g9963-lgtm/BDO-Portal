@@ -1115,6 +1115,17 @@ body:not([data-theme="dark"]) .zone .zl{background:#fff;border-color:rgba(20,30,
 .tw-snip{font-size:calc(10.5px * var(--fz));color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
 .tw-snip b{color:var(--wgFg);font-weight:650}
 .tw-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex:0 0 auto;margin-top:6px}
+/* ══ 타임시트 위젯 ══ */
+.wg .hd .tagp{margin-left:auto}
+.tmgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.tmcell{background:var(--wgTrack);border-radius:12px;padding:9px 4px;text-align:center}
+.tmcell span{font-size:calc(9.5px * var(--fz));color:var(--txt2);font-weight:650}
+.tmcell b{display:block;font-size:calc(18px * var(--fz));font-weight:800;margin-top:4px}
+.tmwait{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding:10px 12px;background:var(--wgTrack);border-radius:12px}
+.tmwait span{font-size:calc(11px * var(--fz));font-weight:650;color:var(--txt2)}
+.tmwait b{font-size:calc(15px * var(--fz));font-weight:800}
+.tmbtn{margin-top:11px;width:100%;padding:11px;border:0;border-radius:14px;background:var(--wgFg);color:var(--wgBg);
+  font:inherit;font-size:calc(12px * var(--fz));font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
 /* ══════════ App Studio — catalog + direct zone placement ══════════ */
 .lib{padding-top:4vh}
 .libbox{width:min(1320px,97vw);height:min(850px,92vh);max-height:92vh;background:var(--menuBg);border:1px solid color-mix(in srgb,var(--menuLine) 88%,#fff);border-radius:24px;box-shadow:0 32px 100px rgba(18,38,65,.28);overflow:hidden}
@@ -1388,7 +1399,8 @@ const G = {
   cal  :'#ffffff', notice:'linear-gradient(160deg,#8496A6,#536676)',
   memo :'linear-gradient(160deg,#FFE08A,#E9B840)',
   team :'linear-gradient(160deg,#9B8CE8,#5B45B8)',
-  room :'linear-gradient(160deg,#5BC6C9,#1F8F92)'
+  room :'linear-gradient(160deg,#5BC6C9,#1F8F92)',
+  ts   :'linear-gradient(160deg,#6E9FE0,#3A6FD8)'
 };
 const PROJ = [
   ['A','㈜알파테크 제25기 외부감사','K-IFRS · 12월 결산 · 인차지 김회계',72,'현장수행','f','#D3374F',G.aud],
@@ -1402,6 +1414,15 @@ const projRows = () => PROJ.map(p=>`
     <div class="rt"><div class="pc tn">${p[3]}%</div><div class="bar"><i style="width:${p[3]}%;background:${p[6]}"></i></div>
     <span class="tagp ${p[5]}" style="margin-top:4px;display:inline-block">${p[4]}</span></div></div>`).join('');
 
+const TIMESHEET=[
+  {d:'4/28 (월)',h:8,status:'draft'},
+  {d:'4/29 (화)',h:8,status:'draft'},
+  {d:'4/30 (수)',h:8,status:'ok'},
+  {d:'5/01 (목)',h:0,status:'rejected'},
+  {d:'5/02 (금)',h:8,status:'ok'}
+];
+const TS_TAG={draft:['작성 중','a'], pending:['승인 요청','r'], ok:['승인 완료','o'], rejected:['반려','f']};
+const tsCount=s=>TIMESHEET.filter(r=>r.status===s).length;
 /* ══════════ 내 일정 · 회의실 예약 · 팀 스페이스 ══════════ */
 const SRC_COLOR={manual:'#5B6E7F', room:'#1F8F92', team:'#7B62D2'};
 const ROOMS=['1회의실','2회의실','3회의실','대회의실'];
@@ -1783,6 +1804,19 @@ const APPS = {
     </div>`},
   team:{name:'팀 스페이스', sub:'내가 속한 스페이스', short:'팀', bg:G.team, w:820, h:560, body:()=>
     teamView==='new'?teamFormBody():teamView==='detail'?teamDetailBody():teamListBody()},
+  timesheet:{name:'타임시트', sub:'이번 주 현황', short:'TS', bg:G.ts, w:640, h:520, body:()=>`
+    <div class="pad">
+      <div class="h1">타임시트<span>.</span></div>
+      <div class="hsub">4월 28일 ~ 5월 2일 · 프로젝트별 투입시간 기록</div>
+      <div class="sh"><h3>이번 주 현황</h3><span class="tagp ${tsCount('draft')?'a':'o'}">${tsCount('draft')?'Incomplete':'완료'}</span></div>
+      <div class="rows">
+        ${TIMESHEET.map(r=>{const tag=TS_TAG[r.status];return `
+        <div class="r" style="grid-template-columns:1fr auto auto"><div class="t">${r.d}</div>
+          <div class="rt tn" style="min-width:40px">${r.h?r.h+'h':'-'}</div>
+          <span class="tagp ${tag[1]}">${tag[0]}</span></div>`;}).join('')}
+      </div>
+      <button class="tmbtn" style="margin-top:16px" data-ts-write>🖊 타임시트 작성</button>
+    </div>`},
   tax:{name:'삼일 TAX 에이전트', sub:'법인 구독', short:'TAX', bg:G.tax, fg:'#6E4A0E', w:560, h:420},
   ins:{name:'인사이트', sub:'리서치', short:'INS', bg:G.ins, w:560, h:420},
   law:{name:'소송조회', sub:'개발 중', short:'LAW', bg:G.gray, soon:1, w:520, h:380},
@@ -1886,7 +1920,16 @@ const WIDGETS={
           <div class="tw-snip">${p?`<b>${p.by}</b> · ${p.t}`:'아직 전달사항 없음'}</div>
         </div>
         ${p?'<span class="tw-dot"></span>':''}
-      </div>`; }).join('')}`}
+      </div>`; }).join('')}`},
+  timesheet:{open:'timesheet', body:()=>`
+    <div class="hd"><span class="sq" style="background:#3A6FD8">T</span>타임시트<span class="tagp ${tsCount('draft')?'a':'o'}">${tsCount('draft')?'Incomplete':'완료'}</span></div>
+    <div class="tmgrid">
+      <div class="tmcell"><span>작성 중</span><b>${tsCount('draft')}</b></div>
+      <div class="tmcell"><span>승인 요청</span><b>${tsCount('pending')}</b></div>
+      <div class="tmcell"><span>반려</span><b>${tsCount('rejected')}</b></div>
+    </div>
+    <div class="tmwait"><span>승인 대기</span><b>${tsCount('pending')}</b></div>
+    <button class="tmbtn" data-ts-write>🖊 타임시트 작성</button>`}
 };
 
 /* ══════════ 홈 격자 (아이콘 + 위젯이 같은 칸을 쓴다) ══════════ */
@@ -1951,12 +1994,13 @@ const WG_META={
   notice:{n:'공지사항',       d:'최근 전사 공지 5건',               rs:1,cs:4, dot:'#5C6E80', mark:'N'},
   memo  :{n:'메모',           d:'최근 메모 미리보기 · 눌러서 편집',   rs:2,cs:2, dot:'#E9B840', mark:'M'},
   kal   :{n:'AI 칼',          d:'최근 대화와 바로 묻는 입력칸',       rs:2,cs:2, dot:'#1C1F27', mark:'칼'},
-  team  :{n:'팀 스페이스',     d:'내가 속한 스페이스와 새 전달사항',   rs:2,cs:2, dot:'#5B45B8', mark:'T'}
+  team  :{n:'팀 스페이스',     d:'내가 속한 스페이스와 새 전달사항',   rs:2,cs:2, dot:'#5B45B8', mark:'T'},
+  timesheet:{n:'타임시트',     d:'이번 주 작성 현황과 바로 작성하기',   rs:2,cs:2, dot:'#3A6FD8', mark:'TS'}
 };
 /* 앱 → 카테고리 (모든 App 서랍의 분류, 홈 추가 시 들어갈 구역) */
 const APP_CAT={aud:'audit',k1118:'audit',xbrl:'audit',fin:'audit',rev:'audit',
   tax:'tax',taxadj:'tax',efile:'tax', ins:'adv',law:'adv',valu:'adv',
-  cal:'admin',notice:'admin',memo:'admin',erp:'admin',hr:'admin',settings:'admin',room:'admin',team:'admin', ai:'ai',rag:'ai'};
+  cal:'admin',notice:'admin',memo:'admin',erp:'admin',hr:'admin',settings:'admin',room:'admin',team:'admin',timesheet:'admin', ai:'ai',rag:'ai'};
 /* k: 'w' 위젯 · 'z' 존 · 'a' 앱 / r,c: 시작 칸 / rs,cs: 차지하는 칸 수 */
 const row=(k,r,c0,ids)=>ids.map((id,i)=>({k,id,r,c:c0+i,rs:1,cs:1}));
 /* 홈에는 지금 쓰는 핵심 앱만 — 나머지는 '모든 App' 서랍에서 꺼내 온다 */
@@ -1978,7 +2022,7 @@ const LAYOUT_DEFAULT=[
 ];
 const DOCK_DEFAULT=['aud','rev','cal','team','memo'];
 const DOCK_MAX=10;
-const WG_DEF_COLS={dday:2,notice:4,memo:2,kal:2,team:2};   /* 축소 비율 기준 */
+const WG_DEF_COLS={dday:2,notice:4,memo:2,kal:2,team:2,timesheet:2};   /* 축소 비율 기준 */
 
 let layout=LAYOUT_DEFAULT.map(o=>({...o}));
 let dockOrder=[...DOCK_DEFAULT];
@@ -3385,7 +3429,7 @@ if(store.get(KKEY)==='1') setKalHidden(true,true);   /* 지난번에 숨겨 두�
 const KAL_APP_ALIAS={aud:['sh audit','audit','감사 플랫폼','감사플랫폼','오딧'],rev:['리뷰함','리뷰'],k1118:['1118','분석기'],fin:['금융기관','금융','은행'],
   xbrl:['xbrl'],notice:['공지'],cal:['일정','캘린더','달력','스케줄'],tax:['tax','세무 에이전트','삼일'],ins:['인사이트'],
   law:['소송'],erp:['erp'],rag:['규정','rag'],taxadj:['세무조정'],efile:['전자신고'],valu:['가치평가','밸류'],hr:['인사','근태'],memo:['메모','스티커'],settings:['설정'],
-  room:['회의실','예약','회의실 예약'],team:['팀 스페이스','팀스페이스','스페이스']};
+  room:['회의실','예약','회의실 예약'],team:['팀 스페이스','팀스페이스','스페이스'],timesheet:['타임시트','근무시간','투입시간']};
 /* 을/를 — 마지막 글자의 받침으로 고른다 (한글이 아니면 '을(를)') */
 const josa=n=>{ const c=n.charCodeAt(n.length-1); if(c<0xAC00||c>0xD7A3) return '을(를)'; return (c-0xAC00)%28?'을':'를'; };
 function kalIntent(text){
